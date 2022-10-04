@@ -2,9 +2,11 @@
 
 Solutions that support Edge compute scenarios
 
-LAN Browser Access to Storage Account Folders and Files
+## LAN Browser Access to Storage Account Folders and Files
 
 Storage Accounts only provide direct access to single files. Edge compute scenarios may require remote users to access folder structure and files to quickly disseminate information and data.
+
+### Deployment Instructions
 
 1. Create a Storage Account in Azure Cloud
 2. Pin storage account to Azure Stack Edge
@@ -52,3 +54,7 @@ Storage Accounts only provide direct access to single files. Edge compute scenar
 9. Using a browser on a device that can access the LAN IP address of the VM, visit http://LAN_IP:8080
 
    ![BrowserFolderView](./BrowserFolderView.png)
+
+### Video
+
+Video TBD
