@@ -13,15 +13,13 @@ Storage Accounts only provide direct access to single files. Edge compute scenar
 5. Copy Bash commands in [Ubuntu-Bash-InstallAndStart_HTTP_Host_FilesAndFolders.sh](.\Ubuntu-Bash-InstallAndStart_HTTP_Host_FilesAndFolders.sh) 
 6. Replace the following values appropriately 
 
-` echo accountName REPLACE_WITH_STORAGE_ACCOUNT_NAME >> fuse_connection.cfg
+     ```bash
+     echo accountName REPLACE_WITH_STORAGE_ACCOUNT_NAME >> fuse_connection.cfg
+     echo accountKey REPLACE_WITH_STORAGE_ACCOUNT_KEY >> fuse_connection.cfg
+     echo containerName REPLACE_WITH_CONTAINER_NAME >> fuse_connection.cfg
+     ```
 
-  *# Use Key 1*
-
-  echo accountKey REPLACE_WITH_STORAGE_ACCOUNT_KEY >> fuse_connection.cfg
-
-  echo containerName REPLACE_WITH_CONTAINER_NAME >> fuse_connection.cfg`
-
-7. Replace all 5 locations of uniqueName, including uniqueNameWebHost, with a unique name for the purpose of your solution
+7. Replace all 5 locations of `uniqueName`, including `uniqueNameWebHost`, with a unique name for the purpose of your solution
 
 8. Copy and paste each commented section into Bash on the VM running on the Azure Stack Edge device
 
@@ -31,32 +29,26 @@ Storage Accounts only provide direct access to single files. Edge compute scenar
 
       1. Copy the block and paste it
 
-         <# install BlobFuse
-
+         ~~~bash
+         # install BlobFuse
            wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb
-
            sudo dpkg -i packages-microsoft-prod.deb
-
            sudo apt-get update -y 
-
-           sudo apt-get install  -y blobfuse>
-
+           sudo apt-get install  -y blobfuse
+         ~~~
+         
       2. When the previous block of code completes, copy the next block and paste it
-
-         `*# create Fuse Connection*
-
+      
+         ~~~bash
+         # create Fuse Connection
            touch fuse_connection.cfg
-
            echo accountName REPLACE_WITH_STORAGE_ACCOUNT_NAME >> fuse_connection.cfg
-
-           *# Use Key 1*
-
+           # Use Key 1
            echo accountKey REPLACE_WITH_STORAGE_ACCOUNT_KEY >> fuse_connection.cfg
-
            echo containerName REPLACE_WITH_CONTAINER_NAME >> fuse_connection.cfg
-
-           chmod 600 fuse_connection.cfg`
-
+           chmod 600 fuse_connection.cfg
+         ~~~
+   
 9. Using a browser on a device that can access the LAN IP address of the VM, visit http://LAN_IP:8080
 
-   ![](.)
+   ![BrowserFolderView](./BrowserFolderView.png)
