@@ -10,7 +10,7 @@ Storage Accounts only provide direct access to single files. Edge compute scenar
 2. Pin storage account to Azure Stack Edge
 3. Validate storage is synced between Azure Stack Edge device and Azure Cloud
 4. Create VM running Ubuntu on Azure Stack Edge
-5. Copy Bash commands in [Ubuntu-Bash-InstallAndStart_HTTP_Host_FilesAndFolders.sh](.\Ubuntu-Bash-InstallAndStart_HTTP_Host_FilesAndFolders.sh) 
+5. Copy Bash commands in [Ubuntu-Bash-InstallAndStart_HTTP_Host_FilesAndFolders.sh](./Ubuntu-Bash-InstallAndStart_HTTP_Host_FilesAndFolders.sh) 
 6. Replace the following values appropriately 
 
      ```bash
