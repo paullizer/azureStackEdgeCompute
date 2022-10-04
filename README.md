@@ -31,7 +31,7 @@ Storage Accounts only provide direct access to single files. Edge compute scenar
 
       1. Copy the block and paste it
 
-         `*# install BlobFuse*
+         <# install BlobFuse
 
            wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb
 
@@ -39,7 +39,7 @@ Storage Accounts only provide direct access to single files. Edge compute scenar
 
            sudo apt-get update -y 
 
-           sudo apt-get install  -y blobfuse`
+           sudo apt-get install  -y blobfuse>
 
       2. When the previous block of code completes, copy the next block and paste it
 
@@ -59,4 +59,4 @@ Storage Accounts only provide direct access to single files. Edge compute scenar
 
 9. Using a browser on a device that can access the LAN IP address of the VM, visit http://LAN_IP:8080
 
-   ![](./BrowserFolderView.png)
+   ![](.)
