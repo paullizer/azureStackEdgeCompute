@@ -37,6 +37,6 @@ Storage Accounts only provide direct access to single files. Edge compute scenar
       1. You CANNOT copy ALL of the code and paste it, Bash doesn't manage sequential execution well.
 7. Access the files and folders on the NFS share from a browser
 
-   1. Using a browser on a device that can access the LAN IP address of the VM, visit http://ASE_IP_ADDRESS:8080.
+   1. Using a browser on a device that can access the LAN IP address of the VM, visit `http://ASE_IP_ADDRESS:8080`.
 
    ![BrowserFolderView](./BrowserFolderView.png)
