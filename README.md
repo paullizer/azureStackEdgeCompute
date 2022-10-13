@@ -1,4 +1,4 @@
-# azureStackEdgeCompute
+# Azure Stack Edge Compute Solutions
 
 Solutions that support Edge compute scenarios
 
@@ -6,55 +6,37 @@ Solutions that support Edge compute scenarios
 
 Storage Accounts only provide direct access to single files. Edge compute scenarios may require remote users to access folder structure and files to quickly disseminate information and data.
 
+![Azure Stack Edge with Azure Orbital Cloud Access](.\Arch-AOCA_and_ASE.png)
+
+
 ### Deployment Instructions
 
-1. Create a Storage Account in Azure Cloud
-2. Pin storage account to Azure Stack Edge
-3. Validate storage is synced between Azure Stack Edge device and Azure Cloud
-4. Create VM running Ubuntu on Azure Stack Edge
-5. Copy Bash commands in [Ubuntu-Bash-InstallAndStart_HTTP_Host_FilesAndFolders.sh](./Ubuntu-Bash-InstallAndStart_HTTP_Host_FilesAndFolders.sh) 
-6. Replace the following values appropriately 
+1. Create storage account and sync it to the Azure Stack Edge.
 
-     ```bash
-     echo accountName REPLACE_WITH_STORAGE_ACCOUNT_NAME >> fuse_connection.cfg
-     echo accountKey REPLACE_WITH_STORAGE_ACCOUNT_KEY >> fuse_connection.cfg
-     echo containerName REPLACE_WITH_CONTAINER_NAME >> fuse_connection.cfg
-     ```
+   1. This is used to sync the VM image (.vhd) to the Azure Stack Edge.
+   2. Follow the Microsoft Learn guide [Tutorial to transfer data to storage account with Azure Stack Edge Pro GPU | Microsoft Learn](https://learn.microsoft.com/en-us/azure/databox-online/azure-stack-edge-gpu-deploy-add-storage-accounts).
+2. Create NFS share and sync it to Azure Stack Edge.
 
-7. Replace all 5 locations of `uniqueName`, including `uniqueNameWebHost`, with a unique name for the purpose of your solution
+   1. Follow the Microsoft Learn guide [Tutorial to transfer data to shares with Azure Stack Edge Pro GPU | Microsoft Learn](https://learn.microsoft.com/en-us/azure/databox-online/azure-stack-edge-gpu-deploy-add-shares).
+3. Validate storage is synced between Azure Stack Edge device and Azure Cloud.
+   1. Copy files into the the share in Azure cloud and validate they show up on the Azure Stack Edge.
+4. Create VHD and copy it to storage account on the Azure Stack Edge
 
-8. Copy and paste each commented section into Bash on the VM running on the Azure Stack Edge device
+   1. Use the Azure PowerShell commands in [Ubuntu.ps1](./Ubuntu.ps1) to create a vhd from a managed disk using a Ubuntu image from the Azure marketplace.
+5. Create VM running Ubuntu on Azure Stack Edge.
 
-   1. You CANNOT copy ALL of the code and paste it, Bash doesn't manage sequential execution well.
+   1. Follow the Microsoft Learn guide [Deploy VMs on your Azure Stack Edge Pro GPU via the Azure portal | Microsoft Learn](https://learn.microsoft.com/en-us/azure/databox-online/azure-stack-edge-gpu-deploy-virtual-machine-portal#add-a-vm).
+6. Configure the VM
 
-   2. Example 
+   1. Use a computer connected locally to the Azure Stack Edge
+   2. Copy Bash commands in [Ubuntu-Bash-InstallAndStart_HTTP_Host_FilesAndFolders.sh](./Ubuntu-Bash-InstallAndStart_HTTP_Host_FilesAndFolders.sh).
+   3. Replace all locations of `uniqueName` with a unique name for the purpose of your solution.
+   4. Replace `ASE_IP_ADDRESS` with the IP Address of the Azure Stack Edge.
+      1. There are four ports, it is important to select the IP address of the port that has "compute" enabled.
+   5. Copy and paste each line one by one into Bash on the VM running on the Azure Stack Edge device.
+      1. You CANNOT copy ALL of the code and paste it, Bash doesn't manage sequential execution well.
+7. Access the files and folders on the NFS share from a browser
 
-      1. Copy the block and paste it
-
-         ~~~bash
-         # install BlobFuse
-           wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb
-           sudo dpkg -i packages-microsoft-prod.deb
-           sudo apt-get update -y 
-           sudo apt-get install  -y blobfuse
-         ~~~
-         
-      2. When the previous block of code completes, copy the next block and paste it
-      
-         ~~~bash
-         # create Fuse Connection
-           touch fuse_connection.cfg
-           echo accountName REPLACE_WITH_STORAGE_ACCOUNT_NAME >> fuse_connection.cfg
-           # Use Key 1
-           echo accountKey REPLACE_WITH_STORAGE_ACCOUNT_KEY >> fuse_connection.cfg
-           echo containerName REPLACE_WITH_CONTAINER_NAME >> fuse_connection.cfg
-           chmod 600 fuse_connection.cfg
-         ~~~
-   
-9. Using a browser on a device that can access the LAN IP address of the VM, visit http://LAN_IP:8080
+   1. Using a browser on a device that can access the LAN IP address of the VM, visit http://ASE_IP_ADDRESS:8080.
 
    ![BrowserFolderView](./BrowserFolderView.png)
-
-### Video
-
-Video TBD

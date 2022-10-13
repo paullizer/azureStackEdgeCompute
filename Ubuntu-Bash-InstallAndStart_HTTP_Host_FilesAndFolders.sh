@@ -1,31 +1,19 @@
 # Run as Root
     sudo su root;
 
-# install BlobFuse
-    wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb;
-    sudo dpkg -i packages-microsoft-prod.deb;
-    sudo apt-get update -y;
-    sudo apt-get install  -y blobfuse;
+# install  CIFS Utils
+    sudo apt-get install -y cifs-utils;
+    
 
-
-# create Fuse Connection
-    touch fuse_connection.cfg;
-    echo accountName REPLACE_WITH_STORAGE_ACCOUNT_NAME >> fuse_connection.cfg
-    # Use Key 1
-    echo accountKey REPLACE_WITH_STORAGE_ACCOUNT_KEY >> fuse_connection.cfg
-    echo containerName REPLACE_WITH_CONTAINER_NAME >> fuse_connection.cfg
-    chmod 600 fuse_connection.cfg;
-
-
-# mount BlobFuse
-    mkdir ~/uniqueName;
-    blobfuse ~/uniqueName --tmp-path=/mnt/resource/blobfusetmp  --config-file=fuse_connection.cfg -o attr_timeout=240 -o entry_timeout=240 -o negative_timeout=120;
-    cd ~/uniqueName;
+# create mount and mount storae account nfs share
+    sudo mkdir -p /nfs/uniqueName;
+    sudo mount ASE_IP_ADDRESS:/var/nfs/general /nfs/uniqueName;
+    cd /nfs/uniqueName;
     ls;
 
 
 # install Curl
-    sudo apt install  -y curl;
+    sudo apt install -y curl;
     curl -sL https://deb.nodesource.com/setup_lts.x | sudo -E bash -;
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -;
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list;
@@ -90,13 +78,14 @@
     echo '  echo "Ruby Web Server is NOT running.";' >> ~/enforceWebHostServerRun.sh;
     echo '  echo "Starting Web Server.";' >> ~/enforceWebHostServerRun.sh;
     echo '  sudo su root;' >> ~/enforceWebHostServerRun.sh;
-    echo '  cd ~/uniqueName;'>> ~/enforceWebHostServerRun.sh;
+    echo '  cd /nfs/uniqueName;'>> ~/enforceWebHostServerRun.sh;
     echo '  /root/.rbenv/shims/ruby -r un.rb -e httpd . -p 8080 > ~/webHostServerStatus.out;' >> ~/enforceWebHostServerRun.sh;
     echo '  echo "Started Web Server."' >> ~/enforceWebHostServerRun.sh;
     echo 'else' >> ~/enforceWebHostServerRun.sh;
     echo '  echo "Ruby Web Server is running."' >> ~/enforceWebHostServerRun.sh;
     echo 'fi' >> ~/enforceWebHostServerRun.sh;
     chmod +x ~/enforceWebHostServerRun.sh;
+
 
 # Create user cron job to run script every two minutes
     nano /etc/crontab
