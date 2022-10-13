@@ -6,7 +6,7 @@ Solutions that support Edge compute scenarios
 
 Storage Accounts only provide direct access to single files. Edge compute scenarios may require remote users to access folder structure and files to quickly disseminate information and data.
 
-![Azure Stack Edge with Azure Orbital Cloud Access](.\Arch-AOCA_and_ASE.png)
+<img src="Arch-AOCA_and_ASE.png" alt="Azure Stack Edge with Azure Orbital Cloud Access" style="zoom:80%;" />
 
 
 ### Deployment Instructions
